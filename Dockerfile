@@ -1,9 +1,7 @@
 # Use an official Python runtime as a parent image
-FROM ubuntu:18.04
 FROM python:3
 
-RUN  apt-get update
-RUN  apt-get install -y mysql-server
+RUN apt-get update && apt-get install -y mysql-server && rm -rf /var/lib/apt/cache
 
 # Set the working directory to /app
 WORKDIR /site

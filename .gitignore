@@ -1,3 +1,6 @@
+#django settings.
+web/web/settings.py
+
 #venv for django
 venv/
 
