@@ -1,5 +1,6 @@
 #django settings.
 web/web/settings.py
+web/elec/migrations/*
 
 #venv for django
 venv/
