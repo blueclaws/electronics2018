@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import NameForm
 
 def index(request):
@@ -24,9 +24,12 @@ def index(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = NameForm()
-
-    return render(request, 'base.html', {'form': form})
+    return render(request, 'base.html', {'form': form, 'user':'Username', 'pass':'Password'})
 
 
 def thanks(request):
-	return HttpResponse("Thanks.")
+    if request.method == 'POST':
+        logout(request)
+        return HttpResponseRedirect('/')
+
+    return render(request, 'user.html')
