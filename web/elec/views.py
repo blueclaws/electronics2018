@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from .forms import NameForm
 
 def index(request):
@@ -15,6 +16,7 @@ def index(request):
             password = request.POST['password']
             user = authenticate(request, username=username, password=password)
             # redirect to a new URL:
+
             if user is not None:
                 login(request, user)
                 return HttpResponseRedirect('/thanks/')
@@ -28,8 +30,4 @@ def index(request):
 
 
 def thanks(request):
-    if request.method == 'POST':
-        logout(request)
-        return HttpResponseRedirect('/')
-
-    return render(request, 'user.html')
+    return HttpResponse("Thanks.")
