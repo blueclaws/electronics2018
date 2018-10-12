@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .forms import NameForm
+from .forms import NameForm, AccountForm
+from .models import AccountInfo
 
 def index(request):
     # if this is a POST request we need to process the form data
@@ -30,4 +31,15 @@ def index(request):
 
 
 def thanks(request):
-    return HttpResponse("Thanks.")
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = AccountForm(request.POST)
+            if form.is_valid():
+                print(form.cleaned_data)
+                obj = AccountInfo(**form.cleaned_data)
+                obj.user = request.user
+                obj.save()
+        else:
+            form = AccountForm()
+
+    return render(request, 'user.html', {'form':form})
