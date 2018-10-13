@@ -1,4 +1,3 @@
-#
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
@@ -52,7 +51,7 @@ def accountedit(request):
             form = AccountForm(request.POST)
             if form.is_valid():
                 print(form.cleaned_data)
-                if User.objects.get(username=request.user):
+                if AccountInfo(user=User.objects.get(username=request.user)) == User.objects.get(username=request.user):
                     user_obj = User.objects.get(username=request.user)
                 else:
                     kek = AccountInfo(user=User.objects.get(username=User.objects.get(username=request.user)), location='Default location', about_me="Default about me")
