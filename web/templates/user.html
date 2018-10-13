@@ -1,5 +1,8 @@
 <form method="post">
   {% csrf_token %}
   {{ form }}
-  <input type="submit" name="Submit">
+  <input type="submit" value="Submit">
+</form>
+<form action="/acc/">
+  <input type="submit" value="Edit">
 </form>
