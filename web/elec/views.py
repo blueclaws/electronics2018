@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .forms import NameForm, AccountForm
 from .models import AccountInfo
+from django.core.exceptions import ObjectDoesNotExist
 
 def index(request):
     # if this is a POST request we need to process the form data
@@ -50,13 +51,12 @@ def accountedit(request):
         if request.method == 'POST':
             form = AccountForm(request.POST)
             if form.is_valid():
-                print(form.cleaned_data)
-                if AccountInfo(user=User.objects.get(username=request.user)) == User.objects.get(username=request.user):
-                    user_obj = User.objects.get(username=request.user)
-                else:
-                    kek = AccountInfo(user=User.objects.get(username=User.objects.get(username=request.user)), location='Default location', about_me="Default about me")
-                    kek.save()
-                    user_obj = User.objects.get(username=request.user)
+                user_obj = User.objects.get(username=request.user)
+                try:
+                     AccountInfo.objects.get(user=user_obj)
+                except ObjectDoesNotExist:
+                     kek = AccountInfo(user=User.objects.get(username=User.objects.get(username=request.user)), location='Default location', about_me="Default about me")
+                     kek.save()
 
                 account_obj = AccountInfo.objects.get(user=user_obj)
                 account_obj.location = request.POST['location']
@@ -65,7 +65,7 @@ def accountedit(request):
         else:
             form = AccountForm()
 
-    return render(request, 'user.html', {'form':form})
+    return render(request, 'accsettings.html', {'form':form})
 
 def thanks(request):
     return HttpResponse("Thanks.")

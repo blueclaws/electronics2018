@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>User settings</title>
+{% endblock head %}
+
+{% block body %}
+
+<form method="post" class="container">
+  {% csrf_token %}
+  <label>Location</label><br>
+  {{ form.location }}<br>
+  <label>About me</label><br>
+  {{ form.about_me }}<br>
+  <input class="btn" type="submit" value="Save">
+</form>
+{% endblock body %}
