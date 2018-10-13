@@ -28,7 +28,7 @@ def index(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = NameForm()
-    return render(request, 'base.html', {'form': form, 'user':'Username', 'pass':'Password'})
+    return render(request, 'login.html', {'form': form, 'user':'Username', 'pass':'Password'})
 
 def register(request):
     if request.user.is_authenticated == True:
