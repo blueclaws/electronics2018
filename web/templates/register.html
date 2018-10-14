@@ -1,5 +1,11 @@
-<form method="post">
-{% csrf_token %}
-{{ form }}
-<input type="submit" value="register">
-</form>
+{% extends 'base.html' %}
+{% block body %}
+<div class="container">
+    <h1>Register</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+    </form>
+</div>
+{% endblock body %}

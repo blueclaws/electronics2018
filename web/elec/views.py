@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .forms import NameForm, AccountForm
+from .forms import NameForm, AccountForm, RegistrationForm
 from .models import AccountInfo
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -30,7 +30,7 @@ def index(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         if request.user.is_authenticated:
-            return redirect('/accountedit/')
+            return redirect('/profile/')
         else:
             form = NameForm()
 
@@ -42,17 +42,18 @@ def profile(request):
 
 def register(request):
     if request.user.is_authenticated == True:
-        return HttpResponse("You are already logged in.")
+        return redirect('/profile/')
     else:
         if request.method == 'POST':
-            form = UserCreationForm(request.POST)
+            form = RegistrationForm(request.POST)
             if form.is_valid():
                 form.save()
-                return redirect('/accountedit/')
+                return redirect('/')
         else:
-            form = UserCreationForm()
+            form = RegistrationForm()
 
     return render(request, 'register.html', {'form': form})
+
 
 
 def accountedit(request):
