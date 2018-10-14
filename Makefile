@@ -15,6 +15,7 @@ dsql:
 csql:
 	sudo docker container stop db
 	sudo docker container rm db
+
 	
 #kill the project.
 clean:
@@ -22,5 +23,4 @@ clean:
 	sudo docker container rm project_site
 	sudo docker container stop db
 	sudo docker container rm db
-
 

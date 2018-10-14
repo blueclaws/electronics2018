@@ -22,14 +22,15 @@ def index(request):
 
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('/thanks/')
+                return HttpResponseRedirect('/accountedit/')
             else:
-                return HttpResponse('This is an errorous login attempt')
+                form = NameForm()
+                return render(request, 'login.html', {'form': form, 'error':'Wrong credentials'})
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = NameForm()
-    return render(request, 'login.html', {'form': form, 'user':'Username', 'pass':'Password'})
+    return render(request, 'login.html', {'form': form})
 
 def register(request):
     if request.user.is_authenticated == True:
@@ -39,7 +40,7 @@ def register(request):
             form = UserCreationForm(request.POST)
             if form.is_valid():
                 form.save()
-                return redirect('/thanks/')
+                return redirect('/accountedit/')
         else:
             form = UserCreationForm()
 
@@ -66,6 +67,12 @@ def accountedit(request):
             form = AccountForm()
 
     return render(request, 'accsettings.html', {'form':form})
+
+def bye(request):
+    if request.user.is_authenticated:
+        logout(request)
+        return redirect('/')
+
 
 def thanks(request):
     return HttpResponse("Thanks.")
