@@ -22,15 +22,23 @@ def index(request):
 
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('/accountedit/')
+                return HttpResponseRedirect('/profile/')
             else:
                 form = NameForm()
                 return render(request, 'login.html', {'form': form, 'error':'Wrong credentials'})
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = NameForm()
+        if request.user.is_authenticated:
+            return redirect('/accountedit/')
+        else:
+            form = NameForm()
+
     return render(request, 'login.html', {'form': form})
+
+def profile(request):
+    if request.user.is_authenticated:
+        return render(request, 'profile.html', {'user': request.user})
 
 def register(request):
     if request.user.is_authenticated == True:

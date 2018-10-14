@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Profile</title>
+{% endblock head %}
+
+{% block profile %}
+    <li class="nav-item active">
+      <a class="nav-link" href="">Profile</a>
+    </li>
+{% endblock profile %}
+{% block body %}
+<div class="container">
+  <h1 class='text-muted'>Welcome to your profile, {{ user.username }}</h1>
+</div>
+{% endblock body %}
