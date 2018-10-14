@@ -7,4 +7,4 @@ class AccountInfo(models.Model):
     about_me = models.TextField("About Me")
 
     def __str__(self):
-        return self.location
+        return str(self.user)

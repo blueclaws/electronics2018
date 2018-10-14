@@ -39,6 +39,8 @@ def index(request):
 def profile(request):
     if request.user.is_authenticated:
         return render(request, 'profile.html', {'user': request.user})
+    else:
+        return redirect('/register/')
 
 def register(request):
     if request.user.is_authenticated == True:
@@ -74,6 +76,9 @@ def accountedit(request):
                 account_obj.save()
         else:
             form = AccountForm()
+
+    else:
+        return redirect('/register/')
 
     return render(request, 'accsettings.html', {'form':form})
 
