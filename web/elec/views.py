@@ -8,6 +8,10 @@ from .models import AccountInfo
 from django.core.exceptions import ObjectDoesNotExist
 
 def index(request):
+    return render(request, 'home.html')
+
+
+def loginer(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -86,6 +90,9 @@ def bye(request):
     if request.user.is_authenticated:
         logout(request)
         return redirect('/')
+
+def home(request):
+    return render(request, 'home.html')
 
 
 def thanks(request):

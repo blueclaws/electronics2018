@@ -18,9 +18,7 @@
         <a class="navbar-brand" href="#">
             <img src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt=""> Title
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           {% block profile %}
@@ -39,6 +37,9 @@
         {#<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> #}
         <a class="btn btn-outline-danger my-2 my-sm-0" href="{% url 'bye' %}">Logout</a>
       </form>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     </nav>
     <br>
     {% block body %}

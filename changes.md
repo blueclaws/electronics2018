@@ -7,3 +7,6 @@
 
 # Change log(joy ok hand sign who did this.)
  - Fixed bootstrap CDN issue.
+
+#Change log():
+ -  Added home page for the website.
