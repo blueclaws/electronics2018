@@ -8,7 +8,8 @@ build:
 	sudo docker build -t elec .
 
 #run just the sql instance.
-dsql:
+.PHONY: sql clean
+sql:
 	sudo docker run --name db -e MYSQL_ROOT_PASSWORD=moot -v /home/claw/Docker/electronics-website/sql:/var/lib/mysql -d mariadb:10	
 
 #kill just the sql instance.

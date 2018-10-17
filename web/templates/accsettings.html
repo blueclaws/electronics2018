@@ -9,6 +9,9 @@
     </li>
 {% endblock account %}
 {% block body %}
+<div class="container alert alert-info text-center" role="alert">
+  Add information to show on your profile.
+</div>
 <form method="post" class="container">
   {% csrf_token %}
   <label>Location</label><br>
@@ -17,4 +20,15 @@
   {{ form.about_me }}<br>
   <input class="btn" type="submit" value="Save">
 </form>
+<div class="container">
+  <hr>
+</div>
+<div class="container alert alert-info text-center" role="alert">
+  Change you password here
+</div>
+<div class="container">
+<a href="/password">
+  <button type="button" class="btn" name="change password">Change Password</button>
+</a>
+</div>
 {% endblock body %}

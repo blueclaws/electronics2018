@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect,Http404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from .forms import NameForm, AccountForm, RegistrationForm
+from django.contrib.auth.forms import UserCreationForm,UserChangeForm, PasswordChangeForm, SetPasswordForm
+from .forms import NameForm, AccountForm, RegistrationForm, ChangeMeForm
 from .models import AccountInfo
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -11,7 +11,7 @@ def index(request):
     return render(request, 'home.html')
 
 
-def loginer(request):
+def portal(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -85,6 +85,38 @@ def accountedit(request):
         return redirect('/register/')
 
     return render(request, 'accsettings.html', {'form':form})
+
+def change(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = ChangeMeForm(request.POST)
+            if form.is_valid():
+                print(form.cleaned_data)
+                use = User.objects.get(username=request.user)
+                use.first_name = request.POST['first_name']
+                use.last_name = request.POST['last_name']
+                use.save()
+                return redirect('/')
+        else:
+            form = ChangeMeForm()
+    else:
+        return redirect('/portal/')
+
+    return render(request, 'change.html', {'form':form})
+
+def password(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form  = SetPasswordForm(data=request.POST, user=request.user)
+            if form.is_valid():
+                form.save()
+                return redirect('/')
+        else:
+            form = SetPasswordForm(user=request.user)
+    else:
+        return redirect('/portal/')
+
+    return render(request, 'password.html', {'form': form})
 
 def bye(request):
     if request.user.is_authenticated:
