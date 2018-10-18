@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
 
+{% block profile %}
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'index'%}">home</a>
+</li>
+{% endblock profile %}
+
+{% block account %}
+{% endblock account %}
 {% block logout %}
 {% endblock logout %}
 {% block body %}

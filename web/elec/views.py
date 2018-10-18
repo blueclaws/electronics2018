@@ -46,6 +46,7 @@ def profile(request):
     else:
         return redirect('/register/')
 
+#disabled as email verification is not added yet.
 def register(request):
     if request.user.is_authenticated == True:
         return redirect('/profile/')
@@ -53,8 +54,8 @@ def register(request):
         if request.method == 'POST':
             form = RegistrationForm(request.POST)
             if form.is_valid():
-                form.save()
-                return redirect('/')
+                #form.save()
+                return HttpResponse('Contact the electronics depratment for your account details.')
         else:
             form = RegistrationForm()
 
