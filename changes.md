@@ -1,1 +1,2 @@
- - Registration is admin only process until I fix the email verification.
+ - Home page now fetches data from the database.
+    * This include the News and Posts.

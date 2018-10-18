@@ -48,17 +48,19 @@
         <div class="row">
           <div class="col-sm-4 bg-light">
             <hr>
+            <h4 class="text-muted text-center">News</h4>
+            {% for new in news %}
             <div class="row">
               <div class="col">
-                <h4 class="text-muted text-center">News</h4>
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">News Title</h5>
-                    <p class="card-text">This is a very important news to be read by the students.</p>
+                    <h5 class="card-title">{{new.title}}</h5>
+                    <p class="card-text">{{new.post}}</p>
                   </div>
                 </div>
               </div>
             </div>
+            {% endfor %}
 
             <hr>
 
@@ -75,13 +77,16 @@
 
           <div class="col-sm-8 bg-light">
             <hr>
+            {% for p in posti %}
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Post title</h5>
-                <p class="card-text">Subject of the post</p>
+                <h5 class="card-title">{{p.title}}</h5>
+                <p class="card-text">{{p.post}}</p>
                 <a href="#" class="btn btn-secondary">Read more</a>
               </div>
             </div>
+            <br>
+            {% endfor %}
             <hr>
           </div>
         </div>

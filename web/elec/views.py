@@ -4,11 +4,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm, PasswordChangeForm, SetPasswordForm
 from .forms import NameForm, AccountForm, RegistrationForm, ChangeMeForm
-from .models import AccountInfo
+from .models import AccountInfo, Posts, News
 from django.core.exceptions import ObjectDoesNotExist
 
 def index(request):
-    return render(request, 'home.html')
+    post = Posts.objects.order_by('-pk')
+    news = News.objects.order_by('-pk')
+    return render(request, 'home.html', {'posti': post, 'news': news})
 
 
 def portal(request):
