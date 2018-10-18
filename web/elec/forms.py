@@ -21,3 +21,12 @@ class RegistrationForm(UserCreationForm):
 class ChangeMeForm(forms.Form):
     first_name = forms.CharField(label='First Name', widget=forms.TextInput(attrs={'class':'form-control'}))
     last_name = forms.CharField(label='Last Name', widget=forms.TextInput(attrs={'class':'form-control'}))
+
+class AddPostsForm(forms.Form):
+    title = forms.CharField(label='Title', widget=forms.TextInput(attrs={'class':'form-control'}))
+    subject = forms.CharField(label='Subject', widget=forms.TextInput(attrs={'class':'form-control'}))
+    post = forms.CharField(label='Post', widget=forms.Textarea(attrs={'class':'form-control'}))
+
+class NewsForm(forms.Form):
+    title = forms.CharField(label='Title', widget=forms.TextInput(attrs={'class':'form-control'}))
+    post = forms.CharField(label='Post', widget=forms.Textarea(attrs={'class':'form-control'}))

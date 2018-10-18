@@ -1,2 +1,5 @@
- - Home page now fetches data from the database.
-    * This include the News and Posts.
+- Now you can add posts and news to the website!
+ * requires admin previlege.
+
+ - "Read more" is currently disable for posts and will be added later in the
+    future.

@@ -13,6 +13,7 @@ class AccountInfo(models.Model):
 class Posts(models.Model):
     title = models.CharField("Post title", max_length=119)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    subject = models.CharField("Subject", max_length=119, default=1)
     pub_date = models.DateTimeField('Publish Date', default=now)
     pub_edit = models.DateTimeField('Publish Date', auto_now=True)
     post = models.TextField("Post Body")

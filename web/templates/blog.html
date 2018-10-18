@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block profile %}
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'index'%}">home</a>
+</li>
+{% endblock profile %}
+
+{% block account %}
+{% endblock account %}
+{% block body %}
+<div class="container">
+<form method="post">
+  {% csrf_token %}
+  {{form.as_p}}
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Post</button>
+</form>
+</div>
+
+<br>
+
+<div class="container">
+  <hr>
+</div>
+
+<br>
+<div class="container alert alert-info text-center" role="alert">
+  Add News below
+</div>
+<br>
+<div class="container">
+<a href="{% url 'news' %}">
+  <button class="btn btn-lg btn-secondary btn-block" type="button" name="button">Add News</button>
+</a>
+</div>
+{% endblock body %}

@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect,Http404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm, PasswordChangeForm, SetPasswordForm
-from .forms import NameForm, AccountForm, RegistrationForm, ChangeMeForm
+from .forms import NameForm, AccountForm, RegistrationForm, ChangeMeForm, AddPostsForm, NewsForm
 from .models import AccountInfo, Posts, News
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -11,6 +11,52 @@ def index(request):
     post = Posts.objects.order_by('-pk')
     news = News.objects.order_by('-pk')
     return render(request, 'home.html', {'posti': post, 'news': news})
+
+def blog(request):
+    if request.user.is_authenticated:
+        if request.user.has_perm('elec.add_posts'):
+            if request.method == 'POST':
+                form = AddPostsForm(request.POST)
+                if form.is_valid():
+                        author = request.user
+                        title = request.POST['title']
+                        subject = request.POST['subject']
+                        post = request.POST['post']
+                        postman = Posts(title = title, author = author, subject = subject, post = post)
+                        postman.save()
+                        return redirect('/profile/')
+            else:
+                form = AddPostsForm()
+        else:
+            raise Http404('You do not have persmission to view this page.')
+
+    else:
+        raise Http404('page does not exist')
+
+    return render(request, 'blog.html', {'form':form})
+
+
+def news(request):
+    if request.user.is_authenticated:
+        if request.user.has_perm('elec.add_news'):
+            if request.method == 'POST':
+                form = NewsForm(request.POST)
+                if form.is_valid():
+                        author = request.user
+                        title = request.POST['title']
+                        post = request.POST['post']
+                        news_reporter = News(title = title, post = post)
+                        news_reporter.save()
+                        return redirect('/profile/')
+            else:
+                form = NewsForm()
+        else:
+            raise Http404('You do not have permission to view this page.')
+
+    else:
+        raise Http404('page does not exist')
+
+    return render(request, 'news.html', {'form':form})
 
 
 def portal(request):
@@ -85,7 +131,7 @@ def accountedit(request):
             form = AccountForm()
 
     else:
-        return redirect('/register/')
+        return redirect('/')
 
     return render(request, 'accsettings.html', {'form':form})
 
